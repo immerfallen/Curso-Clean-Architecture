@@ -16,7 +16,7 @@ namespace CleanArchMvc.Domain.Entities
         public int Stock { get; private set; }
         public string Image { get; private set; }
 
-        public int CategoryId { get; private set; }
-        public Category Category { get; private set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }
