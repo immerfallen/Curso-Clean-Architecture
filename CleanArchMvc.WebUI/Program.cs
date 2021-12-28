@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CleanArchMvc.UI
+namespace CleanArchMvc.WebUI
 {
     public class Program
     {
