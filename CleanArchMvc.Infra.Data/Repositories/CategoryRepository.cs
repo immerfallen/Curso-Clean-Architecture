@@ -13,9 +13,9 @@ namespace CleanArchMvc.Infra.Data.Repositories
     {
         private ApplicationDbContext _categoryContext;
 
-        public CategoryRepository(ApplicationDbContext context)
+        public CategoryRepository(ApplicationDbContext contexto)
         {
-            _categoryContext = context;
+            _categoryContext = contexto;
         }
 
         public async Task<Category> Create(Category category)
