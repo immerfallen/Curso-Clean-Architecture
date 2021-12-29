@@ -2,10 +2,7 @@
 using CleanArchMvc.Domain.Interfaces;
 using CleanArchMvc.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CleanArchMvc.Infra.Data.Repositories
@@ -13,7 +10,7 @@ namespace CleanArchMvc.Infra.Data.Repositories
     public class ProductRepository : IProductRepository
 
     {
-        private ApplicationDbContext _productContext;
+        private readonly ApplicationDbContext _productContext;
 
         public ProductRepository(ApplicationDbContext context)
         {
