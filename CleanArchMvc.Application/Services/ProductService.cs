@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CleanArchMvc.Application.Services
 {
-    class ProductService : IProductService
+    public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
