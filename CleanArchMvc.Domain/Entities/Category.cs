@@ -1,13 +1,9 @@
 ﻿using CleanArchMvc.Domain.Validation;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArchMvc.Domain.Entities
 {
-    public sealed class Category
+    public sealed class Category : Entity
     {
         public Category(string name)
         {
@@ -34,9 +30,7 @@ namespace CleanArchMvc.Domain.Entities
         public void Update(string name)
         {
             ValidateDomain(name);
-        }
-
-        public int Id { get; private set; }
+        }        
 
         public string Name { get; private set; }
 
