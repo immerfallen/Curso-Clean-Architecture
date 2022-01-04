@@ -34,6 +34,7 @@ namespace CleanArchMvc.WebUI.Controllers
             return View(ViewBag.CategotyId);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Create(ProductDTO product)
         {
             if (ModelState.IsValid)
@@ -42,6 +43,35 @@ namespace CleanArchMvc.WebUI.Controllers
                 return RedirectToAction(nameof(Index));
             }
             
+            return View(product);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var productDto = await _prodService.GetById(id);
+
+            if (productDto == null) return NotFound();
+
+            var categories = await _catService.GetCategories();
+
+            ViewBag.CategoriesId = new SelectList(categories, "Id", "Name", productDto.CategoryId);
+
+            return View(productDto);
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProductDTO product)
+        {
+            if (ModelState.IsValid)
+            {
+                await _prodService.Update(product);
+                return RedirectToAction(nameof(Index));
+            }
+
             return View(product);
         }
     }

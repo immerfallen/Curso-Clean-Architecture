@@ -27,7 +27,7 @@ namespace CleanArchMvc.Application.DTO
         [DisplayFormat(DataFormatString = "{0:C2}")]
         [DataType(DataType.Currency)]
         [DisplayName("Price")]
-        [MaxLength(100)]
+        
         public decimal Price { get;  set; }
 
         [Required(ErrorMessage = "The stock is required.")]
