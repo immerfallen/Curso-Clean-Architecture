@@ -1,9 +1,11 @@
 ﻿using CleanArchMvc.Application.DTO;
 using CleanArchMvc.Application.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,11 +15,13 @@ namespace CleanArchMvc.WebUI.Controllers
     {
         private readonly IProductService _prodService;
         private readonly ICategoryService _catService;
+        private readonly IWebHostEnvironment _enviroment;
 
-        public ProductsController(IProductService prodService, ICategoryService catService)
+        public ProductsController(IProductService prodService, ICategoryService catService, IWebHostEnvironment enviroment)
         {
             _prodService = prodService;
             _catService = catService;
+            _enviroment = enviroment;
         }
 
         [HttpGet]
@@ -73,6 +77,40 @@ namespace CleanArchMvc.WebUI.Controllers
             }
 
             return View(product);
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var productDto = await _prodService.GetById(id);
+            if (productDto == null) return NotFound();
+
+            return View(productDto);
+        }
+
+        [HttpPost(), ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _prodService.Remove(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var productDto = await _prodService.GetById(id);
+            if (productDto == null) return NotFound();
+
+            var wwwroot = _enviroment.WebRootPath;
+            var image = Path.Combine(wwwroot, "images\\" + productDto.Image);
+            var exists = System.IO.File.Exists(image);
+            ViewBag.ImageExist = exists;
+
+            return View(productDto);
         }
     }
 }
