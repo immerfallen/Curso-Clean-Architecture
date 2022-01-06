@@ -56,7 +56,7 @@ namespace CleanArchMvc.Infra.Data.Identity
                 }
             }
 
-        }
+        }   
 
         public void SeedRoles()
         {

@@ -52,7 +52,7 @@ namespace CleanArchMvc.WebUI.Controllers
             {
                 if (string.IsNullOrEmpty(model.ReturnUrl))
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Products");
                 }
                 return Redirect(model.ReturnUrl);
             }
