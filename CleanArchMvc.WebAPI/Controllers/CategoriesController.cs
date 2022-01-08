@@ -64,13 +64,11 @@ namespace CleanArchMvc.WebAPI.Controllers
             await _catService.Add(category);
 
             return new CreatedAtRouteResult("GetCategory", new { id = category.Id }, category);
-
         }
 
         [HttpPut]
         public async Task<ActionResult> Put(int id, [FromBody] CategoryDTO category)
         {
-
             if (id != category.Id)
             {
                 return BadRequest("Invalid Data");
@@ -84,7 +82,20 @@ namespace CleanArchMvc.WebAPI.Controllers
             await _catService.Update(category);
 
             return Ok(category);
+        }
 
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<CategoryDTO>> Delete(int id)
+        {
+            var category = await _catService.GetById(id);
+
+            if (category == null)
+            {
+                return NotFound("Category not found.");
+            }
+            await _catService.Remove(id);
+
+            return Ok(category);
         }
     }
 }
