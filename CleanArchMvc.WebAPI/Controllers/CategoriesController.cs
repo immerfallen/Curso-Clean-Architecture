@@ -53,7 +53,7 @@ namespace CleanArchMvc.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody]CategoryDTO category)
+        public async Task<ActionResult> Post([FromBody] CategoryDTO category)
         {
 
             if (category == null)
@@ -64,9 +64,28 @@ namespace CleanArchMvc.WebAPI.Controllers
             await _catService.Add(category);
 
             return new CreatedAtRouteResult("GetCategory", new { id = category.Id }, category);
-           
+
         }
 
+        [HttpPut]
+        public async Task<ActionResult> Put(int id, [FromBody] CategoryDTO category)
+        {
+
+            if (id != category.Id)
+            {
+                return BadRequest("Invalid Data");
+            }
+
+            if (category == null)
+            {
+                return BadRequest();
+            }
+
+            await _catService.Update(category);
+
+            return Ok(category);
+
+        }
     }
 }
 
